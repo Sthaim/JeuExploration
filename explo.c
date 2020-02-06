@@ -11,37 +11,32 @@ struct Lieu
 };
 typedef struct Lieu lieu;
 
-void deplacement(lieu lieuAct,lieu lieuArr){
-  printf("Voyage de %s a %s \n",lieuAct.nom,lieuArr.nom);
-  lieuAct=lieuArr;
-  printf("%s \n",lieuArr.description);
+int deplacement(int * lieuAct,char* choix,lieu lieu[]){
+  return 1;
+  for (int i=0;i<sizeof(lieu[*lieuAct].acces)/ sizeof(lieu[*lieuAct].acces[0]);i++){
+    if (lieu[lieu[*lieuAct].acces[i]].nom==choix){
+      printf("Voyage de %s a %s \n",lieu[*lieuAct].nom,choix);
+      lieu[*lieuAct]=lieu[lieu[*lieuAct].acces[i]];
+      *lieuAct=i;
+      printf("%s \n",lieu[*lieuAct].description);
+      i=11;
+      return 0;
+    }
+  }
 }
 
 int main(){
   char* choix;
-
-  lieu lieu1={"Maison","C'est oklm",rand()%20+1,{1,1,1,1}};
-  lieu lieu2={"Foret","Ca fait peur de ouf",rand()%20+1,{1,1,1}};
-  lieu lieu3={"Plaine","Ya rien, le vide absolu",rand()%20+1,{1,1,1}};
-  lieu lieuAct=lieu3;
-  printf("Vous etes a: %s\n",lieuAct);
+  lieu lieu[10]={{"Maison","C'est oklm",rand()%20+1,{2,3}},
+  {"Foret","Ca fait peur de ouf",rand()%20+1,{1}},
+  {"Plaine","Ya rien, le vide absolu",rand()%20+1,{1}}};
+  int lieuAct=2;
+  printf("Vous etes a: %s\n",lieu[lieuAct].nom);
   printf("Choisissez le nom de lieu\n");
-  printf("%d: %s\n",1,lieu1.nom);
-  printf("%d: %s\n",2,lieu2.nom);
-  scanf("%s",choix);
-  int k=0;
-  while (k==0){
-    if(strcmp(choix,lieu1.nom)==0){
-      deplacement(lieuAct,lieu1);
-      k++;
-    }
-    else if(strcmp(choix,lieu2.nom)==0){
-      deplacement(lieuAct,lieu2);
-      k++;
-    }
-    else{
-      printf("Merci d'utiliser le bon nom de lieu\n");
-      scanf("%d",&choix);
-    }
+  for (int i=1;i<3;i++){
+    printf("%d: %s\n",i,lieu[lieu[lieuAct].acces[i-1]].nom);
+  }
+  while(deplacement(&lieuAct,choix,lieu)==1){
+    scanf("%s",choix);
   }
 }
