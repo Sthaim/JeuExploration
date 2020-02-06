@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Lieu
 {
@@ -9,25 +10,25 @@ struct Lieu
 typedef struct Lieu lieu;
 
 int main(){
-  int choix;
+  char* choix;
   lieu maison={"Maison",1};
   lieu foret={"Foret",2};
-  printf("Choisissez le numero lieu\n");
+  printf("Choisissez le nom de lieu\n");
   printf("%d: %s\n",maison.numero,maison.nom);
   printf("%d: %s\n",foret.numero,foret.nom);
-  scanf("%d",&choix);
+  scanf("%s",choix);
   int k=0;
   while (k==0){
-    if(choix==maison.numero){
+    if(strcmp(choix,maison.nom)==0){
       printf("Vous etes allez a la %s\n",maison.nom);
       k++;
     }
-    else if(choix==maison.numero){
+    else if(strcmp(choix,foret.nom)==0){
       printf("Vous etes allez a la %s\n",foret.nom);
       k++;
     }
     else{
-      printf("Merci d'utiliser le bon numero de lieu\n");
+      printf("Merci d'utiliser le bon nom de lieu\n");
       scanf("%d",&choix);
     }
   }
